@@ -1,0 +1,633 @@
+/* ============================================================
+   SPOTIFY WEB PLAYER CLONE — responsive.css
+   Media Queries for Desktop, Laptop, Tablet, and Mobile
+   ============================================================ */
+
+/* ============================================================
+   DESKTOP LARGE (> 1400px)
+   ============================================================ */
+@media (min-width: 1400px) {
+  .cards-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .greeting-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  :root {
+    --sidebar-width: 260px;
+  }
+}
+
+/* ============================================================
+   DESKTOP STANDARD (1280px – 1400px)
+   ============================================================ */
+@media (max-width: 1400px) and (min-width: 1280px) {
+  .cards-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .btn-install span {
+    display: none;
+  }
+}
+
+/* ============================================================
+   LAPTOP (1024px – 1280px)
+   ============================================================ */
+@media (max-width: 1280px) and (min-width: 1024px) {
+  :root {
+    --sidebar-width: 200px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .greeting-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .logo-text {
+    font-size: 18px;
+  }
+
+  .btn-premium span,
+  .btn-install span {
+    display: none;
+  }
+
+  .btn-premium,
+  .btn-install {
+    padding: 8px;
+    min-width: 36px;
+  }
+
+  .player-left {
+    min-width: 150px;
+    max-width: 220px;
+  }
+
+  .player-right {
+    min-width: 150px;
+    max-width: 220px;
+  }
+
+  .volume-slider-wrapper {
+    width: 70px;
+  }
+}
+
+/* ============================================================
+   TABLET LANDSCAPE (768px – 1024px)
+   ============================================================ */
+@media (max-width: 1024px) and (min-width: 768px) {
+  :root {
+    --sidebar-width: 72px;
+    --topnav-height: 60px;
+    --player-height: 80px;
+  }
+
+  /* Sidebar collapses to icon-only */
+  .sidebar {
+    overflow: visible;
+  }
+
+  .sidebar-top {
+    padding: var(--sp-space-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar-logo {
+    justify-content: center;
+    padding: var(--sp-space-sm);
+    margin-bottom: var(--sp-space-sm);
+  }
+
+  .logo-text { display: none; }
+  .logo-icon { width: 28px; height: 28px; }
+
+  .nav-primary {
+    align-items: center;
+  }
+
+  .nav-link {
+    justify-content: center;
+    padding: 10px;
+    border-radius: var(--sp-radius-sm);
+    width: 48px;
+  }
+
+  .nav-label { display: none; }
+
+  .library-section {
+    align-items: center;
+  }
+
+  .library-header .nav-link {
+    justify-content: center;
+  }
+
+  .library-header .nav-link .nav-label { display: none; }
+
+  .create-playlist-banner,
+  .podcasts-banner,
+  .library-list,
+  .library-actions {
+    display: none !important;
+  }
+
+  .sidebar-bottom {
+    display: none;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .greeting-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .btn-premium span,
+  .btn-install span {
+    display: none;
+  }
+
+  .btn-install {
+    display: none;
+  }
+
+  .btn-premium {
+    padding: 8px 12px;
+  }
+
+  /* Player adjustments */
+  .player-left {
+    min-width: 120px;
+    max-width: 160px;
+  }
+
+  .player-right {
+    min-width: 120px;
+    max-width: 180px;
+  }
+
+  .volume-slider-wrapper {
+    width: 60px;
+  }
+
+  .player-icon-btn:not(.volume-icon-btn):not(.like-btn):nth-child(n+2) {
+    display: none;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+}
+
+/* ============================================================
+   TABLET PORTRAIT (600px – 768px)
+   ============================================================ */
+@media (max-width: 768px) and (min-width: 600px) {
+  :root {
+    --player-height: 72px;
+  }
+
+  /* Hide desktop sidebar, show mobile nav */
+  .sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: 500;
+    border-radius: 0;
+    transition: left var(--sp-transition-slow);
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .app-wrapper {
+    grid-template-columns: 1fr;
+    padding: 0;
+    gap: 0;
+  }
+
+  .main-panel {
+    border-radius: 0;
+  }
+
+  .mobile-bottom-nav {
+    display: flex;
+    bottom: var(--player-height);
+  }
+
+  .music-player {
+    bottom: 60px; /* above mobile nav */
+  }
+
+  .content-area {
+    padding-bottom: calc(var(--player-height) + 60px + 16px);
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-space-sm);
+  }
+
+  .greeting-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .top-nav {
+    padding: 0 var(--sp-space-md);
+  }
+
+  .btn-premium,
+  .btn-install {
+    display: none;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .page-view {
+    padding: var(--sp-space-md);
+  }
+
+  /* Player simplified */
+  .player-left {
+    min-width: 100px;
+    max-width: 140px;
+  }
+
+  .player-right {
+    display: none;
+  }
+
+  .player-center {
+    max-width: 100%;
+  }
+
+  /* Progress bar stays but smaller */
+  .progress-bar-section {
+    display: flex;
+  }
+
+  /* Hide some player buttons */
+  .shuffle-btn,
+  .repeat-btn {
+    display: none;
+  }
+
+  /* Category grid adjust */
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-card {
+    height: 100px;
+  }
+
+  .cat-icon {
+    font-size: 48px;
+  }
+}
+
+/* ============================================================
+   MOBILE (< 600px)
+   ============================================================ */
+@media (max-width: 599px) {
+  :root {
+    --player-height: 68px;
+    --topnav-height: 56px;
+  }
+
+  /* Sidebar as off-canvas drawer */
+  .sidebar {
+    position: fixed;
+    left: -100vw;
+    top: 0;
+    bottom: 0;
+    width: 80vw;
+    max-width: 280px;
+    z-index: 500;
+    border-radius: 0;
+    transition: left var(--sp-transition-slow);
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Single column layout */
+  .app-wrapper {
+    grid-template-columns: 1fr;
+    padding: 0;
+    gap: 0;
+  }
+
+  .main-panel {
+    border-radius: 0;
+    min-height: 100dvh;
+  }
+
+  /* Show mobile nav */
+  .mobile-bottom-nav {
+    display: flex;
+    bottom: var(--player-height);
+  }
+
+  .music-player {
+    bottom: 60px;
+  }
+
+  /* Content padding for fixed elements */
+  .content-area {
+    padding-bottom: calc(var(--player-height) + 60px + 16px);
+  }
+
+  /* Top nav mobile */
+  .top-nav {
+    padding: 0 var(--sp-space-md);
+  }
+
+  .btn-premium,
+  .btn-install {
+    display: none;
+  }
+
+  #notifications-btn {
+    display: none;
+  }
+
+  .nav-controls {
+    display: none;
+  }
+
+  /* Mobile menu hamburger */
+  .top-nav::before {
+    content: '\f0c9';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--sp-text-primary);
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 8px;
+  }
+
+  /* Cards: 2 columns on mobile */
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-space-sm);
+  }
+
+  .greeting-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Page padding */
+  .page-view {
+    padding: var(--sp-space-md) var(--sp-space-sm) var(--sp-space-xl);
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  /* Player mobile: compact */
+  .player-left {
+    flex: 1;
+    min-width: 0;
+    max-width: unset;
+  }
+
+  .player-right {
+    display: none;
+  }
+
+  .player-track-actions {
+    display: none;
+  }
+
+  .player-center {
+    flex: 0;
+    min-width: 0;
+  }
+
+  .player-controls {
+    gap: 4px;
+  }
+
+  .shuffle-btn,
+  .repeat-btn {
+    display: none;
+  }
+
+  .progress-bar-section {
+    display: none;
+  }
+
+  .progress-time {
+    display: none;
+  }
+
+  .player-ctrl-btn {
+    font-size: 14px;
+    padding: 4px;
+  }
+
+  .play-pause-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  /* Music player padding */
+  .music-player {
+    padding: 0 var(--sp-space-sm);
+    gap: var(--sp-space-sm);
+  }
+
+  /* Category cards: 2 columns */
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-space-sm);
+  }
+
+  .category-card {
+    height: 90px;
+  }
+
+  .cat-label {
+    font-size: 16px;
+  }
+
+  .cat-icon {
+    font-size: 44px;
+    bottom: -4px;
+  }
+
+  /* Quick access single column */
+  .quick-card {
+    border-radius: var(--sp-radius-sm);
+  }
+
+  /* Search page */
+  .search-page-title,
+  .library-page-title {
+    font-size: 20px;
+  }
+
+  /* Library filters scroll */
+  .library-filter-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+  .library-filter-tabs::-webkit-scrollbar { height: 0; }
+
+  /* Library controls stack */
+  .library-page-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lib-search-wrap {
+    max-width: 100%;
+  }
+
+  /* Avatar dropdown position */
+  .avatar-dropdown {
+    right: -8px;
+  }
+
+  /* Toast */
+  .toast {
+    bottom: calc(var(--player-height) + 70px);
+    white-space: normal;
+    text-align: center;
+    max-width: 85vw;
+  }
+}
+
+/* ============================================================
+   VERY SMALL MOBILE (< 380px)
+   ============================================================ */
+@media (max-width: 380px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-space-xs);
+  }
+
+  .greeting-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .music-card {
+    padding: var(--sp-space-sm);
+  }
+
+  .card-body {
+    gap: 2px;
+  }
+
+  .card-title {
+    font-size: 12px;
+  }
+
+  .card-subtitle {
+    font-size: 11px;
+  }
+}
+
+/* ============================================================
+   PRINT STYLES (minimal)
+   ============================================================ */
+@media print {
+  .music-player,
+  .sidebar,
+  .top-nav,
+  .mobile-bottom-nav,
+  .loading-screen {
+    display: none !important;
+  }
+
+  .app-wrapper {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+  }
+
+  .content-area {
+    overflow: visible;
+    padding-bottom: 0;
+  }
+
+  body {
+    overflow: visible;
+  }
+}
+
+/* ============================================================
+   HOVER DEVICE DETECTION
+   Only apply hover effects on devices with proper pointer
+   ============================================================ */
+@media (hover: none) and (pointer: coarse) {
+  /* Show play buttons always on touch devices */
+  .card-play-btn,
+  .quick-play-btn {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Remove hover scale on cards for touch */
+  .music-card:hover,
+  .artist-card:hover,
+  .category-card:hover {
+    transform: none;
+  }
+
+  /* Remove hover effects that rely on mouse */
+  .music-card:hover .card-img-wrapper img {
+    transform: none;
+  }
+
+  /* Volume slider always visible on touch */
+  .volume-slider::-webkit-slider-thumb {
+    opacity: 1 !important;
+  }
+
+  .progress-thumb {
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .loading-bars span {
+    animation: none;
+  }
+
+  .loading-logo {
+    animation: none;
+  }
+
+  .loading-screen {
+    animation: none;
+  }
+}

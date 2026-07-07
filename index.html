@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Spotify Web Player — Stream music, discover new artists and playlists, and enjoy a world-class listening experience." />
+  <meta name="keywords" content="Spotify, music, playlists, artists, podcasts, streaming" />
+  <meta name="author" content="Spotify Clone" />
+  <meta property="og:title" content="Spotify Web Player" />
+  <meta property="og:description" content="Listen to music and podcasts. Find the right music for every moment." />
+  <title>Spotify Web Player</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ===================== LOADING SCREEN ===================== -->
+  <div id="loading-screen" class="loading-screen" aria-hidden="true">
+    <div class="loading-logo">
+      <svg viewBox="0 0 24 24" fill="#1DB954" width="80" height="80">
+        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+      </svg>
+      <div class="loading-bars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== APP WRAPPER ===================== -->
+  <div id="app" class="app-wrapper" style="display:none;">
+
+    <!-- ===================== LEFT SIDEBAR ===================== -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+
+      <!-- Sidebar Top: Logo + Primary Nav -->
+      <div class="sidebar-top">
+        <!-- Spotify Logo -->
+        <a href="#" class="sidebar-logo" id="logo-link" aria-label="Spotify Home">
+          <svg viewBox="0 0 24 24" fill="#1DB954" class="logo-icon">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+          </svg>
+          <span class="logo-text">Spotify</span>
+        </a>
+
+        <!-- Primary Nav Links -->
+        <nav class="nav-primary">
+          <a href="#" class="nav-link active" id="nav-home" data-page="home" aria-label="Home">
+            <i class="fas fa-home nav-icon"></i>
+            <span class="nav-label">Home</span>
+          </a>
+          <a href="#" class="nav-link" id="nav-search" data-page="search" aria-label="Search">
+            <i class="fas fa-search nav-icon"></i>
+            <span class="nav-label">Search</span>
+          </a>
+        </nav>
+
+        <!-- Library Section -->
+        <div class="library-section">
+          <div class="library-header">
+            <a href="#" class="nav-link" id="nav-library" data-page="library" aria-label="Your Library">
+              <i class="fas fa-book-open nav-icon"></i>
+              <span class="nav-label">Your Library</span>
+            </a>
+            <div class="library-actions">
+              <button class="icon-btn" id="create-playlist-btn" aria-label="Create Playlist" title="Create playlist or folder">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button class="icon-btn" aria-label="Expand" title="Show more">
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Create Playlist Banner -->
+          <div class="create-playlist-banner" id="create-playlist-banner">
+            <p class="banner-title">Create your first playlist</p>
+            <p class="banner-desc">It's easy, we'll help you</p>
+            <button class="btn-white" id="create-btn">Create playlist</button>
+          </div>
+
+          <!-- Podcasts Banner -->
+          <div class="podcasts-banner">
+            <p class="banner-title">Let's find some podcasts to follow</p>
+            <p class="banner-desc">We'll keep you updated on new episodes</p>
+            <button class="btn-white" id="browse-podcasts-btn">Browse podcasts</button>
+          </div>
+
+          <!-- Library Playlist List (hidden by default, shown after "creating") -->
+          <div class="library-list" id="library-list" style="display:none;">
+            <div class="library-item active-item" data-type="playlist">
+              <img src="assets/images/album_pop.png" alt="Liked Songs cover" class="lib-img" loading="lazy" />
+              <div class="lib-info">
+                <span class="lib-name">Liked Songs</span>
+                <span class="lib-meta"><i class="fas fa-heart lib-meta-icon"></i> Playlist · 47 songs</span>
+              </div>
+            </div>
+            <div class="library-item" data-type="playlist">
+              <img src="assets/images/album_hiphop.png" alt="Neon City Vibes cover" class="lib-img" loading="lazy" />
+              <div class="lib-info">
+                <span class="lib-name">Neon City Vibes</span>
+                <span class="lib-meta">Playlist · Nova Hayes</span>
+              </div>
+            </div>
+            <div class="library-item" data-type="playlist">
+              <img src="assets/images/album_edm.png" alt="Late Night Drive cover" class="lib-img" loading="lazy" />
+              <div class="lib-info">
+                <span class="lib-name">Late Night Drive</span>
+                <span class="lib-meta">Playlist · Made for you</span>
+              </div>
+            </div>
+            <div class="library-item" data-type="artist">
+              <img src="assets/images/artist_luna.png" alt="Luna Wave artist" class="lib-img lib-img-round" loading="lazy" />
+              <div class="lib-info">
+                <span class="lib-name">Luna Wave</span>
+                <span class="lib-meta">Artist</span>
+              </div>
+            </div>
+            <div class="library-item" data-type="podcast">
+              <img src="assets/images/podcast_tech.png" alt="TechPulse podcast" class="lib-img" loading="lazy" />
+              <div class="lib-info">
+                <span class="lib-name">TechPulse</span>
+                <span class="lib-meta">Podcast · Show</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Bottom: Footer Links -->
+      <div class="sidebar-bottom">
+        <div class="sidebar-footer-links">
+          <a href="#" class="footer-link">Cookies</a>
+          <a href="#" class="footer-link">Privacy Center</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms and Conditions of Use</a>
+          <a href="#" class="footer-link">Legal</a>
+          <a href="#" class="footer-link">About Ads</a>
+          <a href="#" class="footer-link">Accessibility</a>
+        </div>
+        <button class="language-btn" id="language-btn" aria-label="Change language">
+          <i class="fas fa-globe"></i>
+          <span>English</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ===================== MAIN PANEL ===================== -->
+    <div class="main-panel">
+
+      <!-- ============ TOP NAVIGATION BAR ============ -->
+      <header class="top-nav" id="top-nav" role="banner">
+        <!-- Navigation Controls -->
+        <div class="nav-controls">
+          <button class="nav-control-btn" id="back-btn" aria-label="Go back">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="nav-control-btn" id="forward-btn" aria-label="Go forward">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- Search bar (shown on search page) -->
+        <div class="top-search-bar" id="top-search-wrapper" style="display:none;">
+          <div class="search-input-wrapper">
+            <i class="fas fa-search search-icon"></i>
+            <input
+              type="text"
+              id="main-search-input"
+              class="search-input"
+              placeholder="What do you want to listen to?"
+              autocomplete="off"
+              aria-label="Search"
+            />
+            <button class="search-clear-btn" id="search-clear-btn" aria-label="Clear search" style="display:none;">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="search-browse-toggle" id="browse-toggle">Browse</div>
+        </div>
+
+        <!-- Right Side: Account Actions -->
+        <div class="nav-right">
+          <button class="btn-premium" id="premium-btn" aria-label="Upgrade to Premium">
+            <i class="fas fa-star"></i>
+            <span>Explore Premium</span>
+          </button>
+          <button class="btn-install" id="install-btn" aria-label="Install Spotify App">
+            <i class="fas fa-download"></i>
+            <span>Install App</span>
+          </button>
+          <button class="icon-btn nav-icon-btn" id="notifications-btn" aria-label="Notifications">
+            <i class="fas fa-bell"></i>
+          </button>
+          <div class="user-avatar" id="user-avatar" aria-label="User profile" role="button" tabindex="0">
+            <span class="avatar-initials">GT</span>
+            <div class="avatar-dropdown" id="avatar-dropdown">
+              <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Account</a>
+              <a href="#" class="dropdown-item"><i class="fas fa-user-circle"></i> Profile</a>
+              <a href="#" class="dropdown-item"><i class="fas fa-crown"></i> Upgrade to Premium</a>
+              <a href="#" class="dropdown-item"><i class="fas fa-desktop"></i> Settings</a>
+              <hr class="dropdown-divider" />
+              <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log out</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ============ CONTENT AREA ============ -->
+      <main class="content-area" id="content-area" role="main">
+
+        <!-- ========== HOME PAGE ========== -->
+        <section class="page-view active-page" id="home-page" aria-label="Home">
+
+          <!-- Greeting Section -->
+          <div class="greeting-section">
+            <div class="greeting-grid" id="greeting-grid">
+              <!-- Quick Access Cards (Recently Played) -->
+              <div class="quick-card" data-song="Neon City" data-artist="Nova Hayes" data-img="assets/images/album_hiphop.png">
+                <img src="assets/images/album_hiphop.png" alt="Neon City album" loading="lazy" />
+                <span>Neon City</span>
+                <button class="quick-play-btn" aria-label="Play Neon City">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+              <div class="quick-card" data-song="Blush EP" data-artist="Nova Hayes" data-img="assets/images/album_pop.png">
+                <img src="assets/images/album_pop.png" alt="Blush album" loading="lazy" />
+                <span>Blush EP</span>
+                <button class="quick-play-btn" aria-label="Play Blush EP">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+              <div class="quick-card" data-song="PULSE" data-artist="Luna Wave" data-img="assets/images/album_edm.png">
+                <img src="assets/images/album_edm.png" alt="PULSE album" loading="lazy" />
+                <span>PULSE</span>
+                <button class="quick-play-btn" aria-label="Play PULSE">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+              <div class="quick-card" data-song="Velvet Soul" data-artist="River Soul" data-img="assets/images/album_rnb.png">
+                <img src="assets/images/album_rnb.png" alt="Velvet album" loading="lazy" />
+                <span>Velvet Soul</span>
+                <button class="quick-play-btn" aria-label="Play Velvet Soul">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+              <div class="quick-card" data-song="Liked Songs" data-artist="Various" data-img="assets/images/album_pop.png">
+                <img src="assets/images/album_pop.png" alt="Liked Songs" loading="lazy" />
+                <span>Liked Songs</span>
+                <button class="quick-play-btn" aria-label="Play Liked Songs">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+              <div class="quick-card" data-song="TechPulse" data-artist="Podcast" data-img="assets/images/podcast_tech.png">
+                <img src="assets/images/podcast_tech.png" alt="TechPulse podcast" loading="lazy" />
+                <span>TechPulse</span>
+                <button class="quick-play-btn" aria-label="Play TechPulse">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---- Recently Played Section ---- -->
+          <section class="content-section" aria-label="Recently Played">
+            <div class="section-header">
+              <h2 class="section-title">Recently Played</h2>
+              <a href="#" class="section-link">Show all</a>
+            </div>
+            <div class="cards-grid" id="recently-played-grid">
+
+              <div class="music-card" data-song="Neon City" data-artist="Nova Hayes" data-img="assets/images/album_hiphop.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_hiphop.png" alt="Neon City" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Neon City"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Neon City</p>
+                  <p class="card-subtitle">Nova Hayes</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Blush EP" data-artist="Nova Hayes" data-img="assets/images/album_pop.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_pop.png" alt="Blush EP" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Blush EP"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Blush EP</p>
+                  <p class="card-subtitle">Nova Hayes</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="PULSE" data-artist="Luna Wave" data-img="assets/images/album_edm.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_edm.png" alt="PULSE" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play PULSE"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">PULSE</p>
+                  <p class="card-subtitle">Luna Wave</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Velvet Soul" data-artist="River Soul" data-img="assets/images/album_rnb.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_rnb.png" alt="Velvet Soul" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Velvet Soul"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Velvet Soul</p>
+                  <p class="card-subtitle">River Soul</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Wildwood" data-artist="Kai Sterling" data-img="assets/images/album_indie.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_indie.png" alt="Wildwood" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Wildwood"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Wildwood</p>
+                  <p class="card-subtitle">Kai Sterling</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Voltage" data-artist="The Echoes" data-img="assets/images/album_rock.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_rock.png" alt="Voltage" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Voltage"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Voltage</p>
+                  <p class="card-subtitle">The Echoes</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ---- Made For You Section ---- -->
+          <section class="content-section" aria-label="Made For You">
+            <div class="section-header">
+              <h2 class="section-title">Made For You</h2>
+              <a href="#" class="section-link">Show all</a>
+            </div>
+            <div class="cards-grid">
+
+              <div class="music-card" data-song="Daily Mix 1" data-artist="Made for you" data-img="assets/images/album_pop.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_pop.png" alt="Daily Mix 1" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Daily Mix 1"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Daily Mix 1</p>
+                  <p class="card-subtitle">Nova Hayes, River Soul and more</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Daily Mix 2" data-artist="Made for you" data-img="assets/images/album_edm.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_edm.png" alt="Daily Mix 2" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Daily Mix 2"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Daily Mix 2</p>
+                  <p class="card-subtitle">Luna Wave, Dex Morrow and more</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Discover Weekly" data-artist="Your weekly mixtape" data-img="assets/images/album_hiphop.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_hiphop.png" alt="Discover Weekly" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Discover Weekly"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Discover Weekly</p>
+                  <p class="card-subtitle">Your weekly mixtape of fresh music</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Release Radar" data-artist="New releases" data-img="assets/images/album_indie.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_indie.png" alt="Release Radar" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Release Radar"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Release Radar</p>
+                  <p class="card-subtitle">Catch all the latest music from artists you follow</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="On Repeat" data-artist="Songs you love right now" data-img="assets/images/album_rnb.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_rnb.png" alt="On Repeat" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play On Repeat"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">On Repeat</p>
+                  <p class="card-subtitle">Songs you love right now</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Repeat Rewind" data-artist="The songs you used to love" data-img="assets/images/album_rock.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_rock.png" alt="Repeat Rewind" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Repeat Rewind"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Repeat Rewind</p>
+                  <p class="card-subtitle">The songs you used to love</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ---- Popular Artists Section ---- -->
+          <section class="content-section" aria-label="Popular Artists">
+            <div class="section-header">
+              <h2 class="section-title">Popular Artists</h2>
+              <a href="#" class="section-link">Show all</a>
+            </div>
+            <div class="cards-grid">
+
+              <div class="artist-card" data-song="Top Tracks — Nova Hayes" data-artist="Nova Hayes" data-img="assets/images/artist_nova.png" tabindex="0">
+                <div class="card-img-wrapper artist-img-wrapper">
+                  <img src="assets/images/artist_nova.png" alt="Nova Hayes" loading="lazy" class="artist-img" />
+                  <button class="card-play-btn" aria-label="Play Nova Hayes"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Nova Hayes</p>
+                  <p class="card-subtitle">Artist</p>
+                </div>
+              </div>
+
+              <div class="artist-card" data-song="Top Tracks — Dex Morrow" data-artist="Dex Morrow" data-img="assets/images/artist_dex.png" tabindex="0">
+                <div class="card-img-wrapper artist-img-wrapper">
+                  <img src="assets/images/artist_dex.png" alt="Dex Morrow" loading="lazy" class="artist-img" />
+                  <button class="card-play-btn" aria-label="Play Dex Morrow"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Dex Morrow</p>
+                  <p class="card-subtitle">Artist</p>
+                </div>
+              </div>
+
+              <div class="artist-card" data-song="Top Tracks — Luna Wave" data-artist="Luna Wave" data-img="assets/images/artist_luna.png" tabindex="0">
+                <div class="card-img-wrapper artist-img-wrapper">
+                  <img src="assets/images/artist_luna.png" alt="Luna Wave" loading="lazy" class="artist-img" />
+                  <button class="card-play-btn" aria-label="Play Luna Wave"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Luna Wave</p>
+                  <p class="card-subtitle">Artist</p>
+                </div>
+              </div>
+
+              <div class="artist-card" data-song="Top Tracks — River Soul" data-artist="River Soul" data-img="assets/images/artist_river.png" tabindex="0">
+                <div class="card-img-wrapper artist-img-wrapper">
+                  <img src="assets/images/artist_river.png" alt="River Soul" loading="lazy" class="artist-img" />
+                  <button class="card-play-btn" aria-label="Play River Soul"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">River Soul</p>
+                  <p class="card-subtitle">Artist</p>
+                </div>
+              </div>
+
+              <div class="artist-card" data-song="Top Tracks — The Echoes" data-artist="The Echoes" data-img="assets/images/artist_echoes.png" tabindex="0">
+                <div class="card-img-wrapper artist-img-wrapper">
+                  <img src="assets/images/artist_echoes.png" alt="The Echoes" loading="lazy" class="artist-img" />
+                  <button class="card-play-btn" aria-label="Play The Echoes"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">The Echoes</p>
+                  <p class="card-subtitle">Artist</p>
+                </div>
+              </div>
+
+              <div class="artist-card" data-song="Top Tracks — Kai Sterling" data-artist="Kai Sterling" data-img="assets/images/artist_kai.png" tabindex="0">
+                <div class="card-img-wrapper artist-img-wrapper">
+                  <img src="assets/images/artist_kai.png" alt="Kai Sterling" loading="lazy" class="artist-img" />
+                  <button class="card-play-btn" aria-label="Play Kai Sterling"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Kai Sterling</p>
+                  <p class="card-subtitle">Artist</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ---- Trending Now Section ---- -->
+          <section class="content-section" aria-label="Trending Now">
+            <div class="section-header">
+              <h2 class="section-title">Trending Now</h2>
+              <a href="#" class="section-link">Show all</a>
+            </div>
+            <div class="cards-grid">
+
+              <div class="music-card" data-song="Hot Hits USA" data-artist="The hottest tracks in the United States" data-img="assets/images/album_pop.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_pop.png" alt="Hot Hits USA" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Hot Hits USA"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Hot Hits USA</p>
+                  <p class="card-subtitle">The hottest tracks in the United States</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Global Top 50" data-artist="Your daily update of the most played tracks" data-img="assets/images/album_edm.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_edm.png" alt="Global Top 50" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Global Top 50"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Global Top 50</p>
+                  <p class="card-subtitle">Your daily update of the most played tracks</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Rap Caviar" data-artist="The most essential Hip Hop playlist" data-img="assets/images/album_hiphop.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_hiphop.png" alt="Rap Caviar" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Rap Caviar"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Rap Caviar</p>
+                  <p class="card-subtitle">The most essential Hip Hop playlist</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Vibrant Vibes" data-artist="Feel-good hits for any mood" data-img="assets/images/album_rnb.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_rnb.png" alt="Vibrant Vibes" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Vibrant Vibes"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Vibrant Vibes</p>
+                  <p class="card-subtitle">Feel-good hits for any mood</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Rock This" data-artist="Rock anthems for any generation" data-img="assets/images/album_rock.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_rock.png" alt="Rock This" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Rock This"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Rock This</p>
+                  <p class="card-subtitle">Rock anthems for any generation</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Indie Trail" data-artist="The best in independent music" data-img="assets/images/album_indie.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_indie.png" alt="Indie Trail" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Indie Trail"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Indie Trail</p>
+                  <p class="card-subtitle">The best in independent music</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ---- Recommended Albums Section ---- -->
+          <section class="content-section" aria-label="Recommended Albums">
+            <div class="section-header">
+              <h2 class="section-title">Recommended Albums</h2>
+              <a href="#" class="section-link">Show all</a>
+            </div>
+            <div class="cards-grid">
+
+              <div class="music-card" data-song="Neon City" data-artist="Nova Hayes · Album · 2024" data-img="assets/images/album_hiphop.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_hiphop.png" alt="Neon City Album" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Neon City album"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Neon City</p>
+                  <p class="card-subtitle">Nova Hayes · Album · 2024</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Blush" data-artist="Nova Hayes · EP · 2024" data-img="assets/images/album_pop.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_pop.png" alt="Blush EP" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Blush EP"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Blush</p>
+                  <p class="card-subtitle">Nova Hayes · EP · 2024</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="PULSE" data-artist="Luna Wave · Album · 2024" data-img="assets/images/album_edm.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_edm.png" alt="PULSE Album" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play PULSE album"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">PULSE</p>
+                  <p class="card-subtitle">Luna Wave · Album · 2024</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Velvet" data-artist="River Soul · Album · 2023" data-img="assets/images/album_rnb.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_rnb.png" alt="Velvet Album" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Velvet album"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Velvet</p>
+                  <p class="card-subtitle">River Soul · Album · 2023</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Wildwood" data-artist="Kai Sterling · Album · 2023" data-img="assets/images/album_indie.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_indie.png" alt="Wildwood Album" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Wildwood album"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Wildwood</p>
+                  <p class="card-subtitle">Kai Sterling · Album · 2023</p>
+                </div>
+              </div>
+
+              <div class="music-card" data-song="Voltage" data-artist="The Echoes · Album · 2024" data-img="assets/images/album_rock.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/album_rock.png" alt="Voltage Album" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Voltage album"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Voltage</p>
+                  <p class="card-subtitle">The Echoes · Album · 2024</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ---- Podcasts Section ---- -->
+          <section class="content-section" aria-label="Podcasts">
+            <div class="section-header">
+              <h2 class="section-title">Podcasts You Might Like</h2>
+              <a href="#" class="section-link">Show all</a>
+            </div>
+            <div class="cards-grid">
+
+              <div class="music-card podcast-card" data-song="TechPulse" data-artist="Technology · Podcast" data-img="assets/images/podcast_tech.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/podcast_tech.png" alt="TechPulse Podcast" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play TechPulse"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">TechPulse</p>
+                  <p class="card-subtitle">Technology · Weekly episodes on AI, startups and the future</p>
+                </div>
+              </div>
+
+              <div class="music-card podcast-card" data-song="True Shadows" data-artist="True Crime · Podcast" data-img="assets/images/podcast_crime.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/podcast_crime.png" alt="True Shadows Podcast" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play True Shadows"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">True Shadows</p>
+                  <p class="card-subtitle">True Crime · The cases that shocked the world</p>
+                </div>
+              </div>
+
+              <div class="music-card podcast-card" data-song="The Comedy Hour" data-artist="Comedy · Podcast" data-img="assets/images/podcast_comedy.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/podcast_comedy.png" alt="Comedy Hour Podcast" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play The Comedy Hour"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">The Comedy Hour</p>
+                  <p class="card-subtitle">Comedy · Laughs, stories, and good vibes</p>
+                </div>
+              </div>
+
+              <div class="music-card podcast-card" data-song="Money Moves" data-artist="Finance · Podcast" data-img="assets/images/podcast_money.png" tabindex="0">
+                <div class="card-img-wrapper">
+                  <img src="assets/images/podcast_money.png" alt="Money Moves Podcast" loading="lazy" />
+                  <button class="card-play-btn" aria-label="Play Money Moves"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Money Moves</p>
+                  <p class="card-subtitle">Finance · Build wealth with smart strategies</p>
+                </div>
+              </div>
+
+              <div class="music-card podcast-card" data-song="Game Time" data-artist="Sports · Podcast" data-img="assets/images/podcast_comedy.png" tabindex="0">
+                <div class="card-img-wrapper podcast-fallback-5">
+                  <img src="assets/images/podcast_comedy.png" alt="Game Time Podcast" loading="lazy" class="hidden-img"/>
+                  <button class="card-play-btn" aria-label="Play Game Time"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Game Time</p>
+                  <p class="card-subtitle">Sports · Analysis, stories, and interviews</p>
+                </div>
+              </div>
+
+              <div class="music-card podcast-card" data-song="Beat Makers" data-artist="Music · Podcast" data-img="assets/images/podcast_tech.png" tabindex="0">
+                <div class="card-img-wrapper podcast-fallback-6">
+                  <img src="assets/images/podcast_tech.png" alt="Beat Makers Podcast" loading="lazy" class="hidden-img"/>
+                  <button class="card-play-btn" aria-label="Play Beat Makers"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="card-body">
+                  <p class="card-title">Beat Makers</p>
+                  <p class="card-subtitle">Music · Inside the studio with top producers</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </section>
+        <!-- end #home-page -->
+
+        <!-- ========== SEARCH PAGE ========== -->
+        <section class="page-view" id="search-page" aria-label="Search" style="display:none;">
+          <h1 class="search-page-title">Browse all</h1>
+          <div class="category-grid" id="category-grid">
+
+            <div class="category-card" style="--cat-color: #E61E32;" data-category="Pop">
+              <span class="cat-label">Pop</span>
+              <i class="fas fa-music cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #BC5900;" data-category="Hip-Hop">
+              <span class="cat-label">Hip-Hop</span>
+              <i class="fas fa-microphone cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #1E3264;" data-category="Electronic">
+              <span class="cat-label">Electronic</span>
+              <i class="fas fa-bolt cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #477D95;" data-category="R&B">
+              <span class="cat-label">R&amp;B</span>
+              <i class="fas fa-heart cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #608108;" data-category="Rock">
+              <span class="cat-label">Rock</span>
+              <i class="fas fa-guitar cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #E8115B;" data-category="Latin">
+              <span class="cat-label">Latin</span>
+              <i class="fas fa-fire cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #509BF5;" data-category="Podcasts">
+              <span class="cat-label">Podcasts</span>
+              <i class="fas fa-podcast cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #503750;" data-category="Indie">
+              <span class="cat-label">Indie</span>
+              <i class="fas fa-leaf cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #DC148C;" data-category="Dance/EDM">
+              <span class="cat-label">Dance/EDM</span>
+              <i class="fas fa-compact-disc cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #27856A;" data-category="Jazz">
+              <span class="cat-label">Jazz</span>
+              <i class="fas fa-saxophone cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #8D67AB;" data-category="Classical">
+              <span class="cat-label">Classical</span>
+              <i class="fas fa-violin cat-icon"></i>
+            </div>
+            <div class="category-card" style="--cat-color: #148A08;" data-category="Country">
+              <span class="cat-label">Country</span>
+              <i class="fas fa-hat-cowboy cat-icon"></i>
+            </div>
+
+          </div>
+        </section>
+        <!-- end #search-page -->
+
+        <!-- ========== LIBRARY PAGE ========== -->
+        <section class="page-view" id="library-page" aria-label="Your Library" style="display:none;">
+          <div class="library-page-header">
+            <h1 class="library-page-title">Your Library</h1>
+            <div class="library-filter-tabs">
+              <button class="filter-tab active" data-filter="all" id="filter-all">All</button>
+              <button class="filter-tab" data-filter="playlists" id="filter-playlists">Playlists</button>
+              <button class="filter-tab" data-filter="artists" id="filter-artists">Artists</button>
+              <button class="filter-tab" data-filter="albums" id="filter-albums">Albums</button>
+              <button class="filter-tab" data-filter="podcasts" id="filter-podcasts">Podcasts &amp; Shows</button>
+            </div>
+          </div>
+
+          <div class="library-page-controls">
+            <div class="lib-search-wrap">
+              <i class="fas fa-search lib-search-icon"></i>
+              <input type="text" id="library-search" placeholder="Search in Your Library" class="lib-search-input" aria-label="Search library" />
+            </div>
+            <div class="lib-sort">
+              <button class="lib-sort-btn" id="lib-sort-btn">
+                <span id="lib-sort-label">Recents</span>
+                <i class="fas fa-sort-amount-down"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="library-full-list" id="library-full-list">
+
+            <div class="lib-full-item" data-type="playlist">
+              <img src="assets/images/album_pop.png" alt="Liked Songs" class="lib-full-img" loading="lazy" />
+              <div class="lib-full-info">
+                <p class="lib-full-name">Liked Songs</p>
+                <p class="lib-full-meta"><span class="lib-tag playlist-tag">Playlist</span> · 47 songs</p>
+              </div>
+            </div>
+
+            <div class="lib-full-item" data-type="playlist">
+              <img src="assets/images/album_hiphop.png" alt="Neon City Vibes" class="lib-full-img" loading="lazy" />
+              <div class="lib-full-info">
+                <p class="lib-full-name">Neon City Vibes</p>
+                <p class="lib-full-meta"><span class="lib-tag playlist-tag">Playlist</span> · Nova Hayes</p>
+              </div>
+            </div>
+
+            <div class="lib-full-item" data-type="playlist">
+              <img src="assets/images/album_edm.png" alt="Late Night Drive" class="lib-full-img" loading="lazy" />
+              <div class="lib-full-info">
+                <p class="lib-full-name">Late Night Drive</p>
+                <p class="lib-full-meta"><span class="lib-tag playlist-tag">Playlist</span> · Made for you</p>
+              </div>
+            </div>
+
+            <div class="lib-full-item" data-type="artists">
+              <img src="assets/images/artist_nova.png" alt="Nova Hayes" class="lib-full-img lib-full-img-round" loading="lazy" />
+              <div class="lib-full-info">
+                <p class="lib-full-name">Nova Hayes</p>
+                <p class="lib-full-meta"><span class="lib-tag artist-tag">Artist</span></p>
+              </div>
+            </div>
+
+            <div class="lib-full-item" data-type="artists">
+              <img src="assets/images/artist_luna.png" alt="Luna Wave" class="lib-full-img lib-full-img-round" loading="lazy" />
+              <div class="lib-full-info">
+                <p class="lib-full-name">Luna Wave</p>
+                <p class="lib-full-meta"><span class="lib-tag artist-tag">Artist</span></p>
+              </div>
+            </div>
+
+            <div class="lib-full-item" data-type="albums">
+              <img src="assets/images/album_rnb.png" alt="Velvet Album" class="lib-full-img" loading="lazy" />
+              <div class="lib-full-info">
+                <p class="lib-full-name">Velvet</p>
+                <p class="lib-full-meta"><span class="lib-tag album-tag">Album</span> · River Soul</p>
+              </div>
+            </div>
+
+            <div class="lib-full-item" data-type="albums">
+              <img src="assets/images/album_rock.png" alt="Voltage Album" class="lib-full-img" loading="lazy" />
+              <div class="lib-full-info">
+                <p class="lib-full-name">Voltage</p>
+                <p class="lib-full-meta"><span class="lib-tag album-tag">Album</span> · The Echoes</p>
+              </div>
+            </div>
+
+            <div class="lib-full-item" data-type="podcasts">
+              <img src="assets/images/podcast_tech.png" alt="TechPulse" class="lib-full-img" loading="lazy" />
+              <div class="lib-full-info">
+                <p class="lib-full-name">TechPulse</p>
+                <p class="lib-full-meta"><span class="lib-tag podcast-tag">Podcast</span> · Show</p>
+              </div>
+            </div>
+
+            <div class="lib-full-item" data-type="podcasts">
+              <img src="assets/images/podcast_crime.png" alt="True Shadows" class="lib-full-img" loading="lazy" />
+              <div class="lib-full-info">
+                <p class="lib-full-name">True Shadows</p>
+                <p class="lib-full-meta"><span class="lib-tag podcast-tag">Podcast</span> · Show</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+        <!-- end #library-page -->
+
+      </main>
+      <!-- end .content-area -->
+
+    </div>
+    <!-- end .main-panel -->
+
+  </div>
+  <!-- end #app -->
+
+  <!-- ===================== MUSIC PLAYER ===================== -->
+  <footer class="music-player" id="music-player" role="region" aria-label="Music Player" style="display:none;">
+
+    <!-- Left: Track Info -->
+    <div class="player-left">
+      <div class="player-track-img-wrap">
+        <img id="player-img" src="assets/images/album_pop.png" alt="Now playing album art" loading="lazy" />
+      </div>
+      <div class="player-track-info">
+        <p class="player-track-name" id="player-track-name">Blush EP</p>
+        <p class="player-track-artist" id="player-track-artist">Nova Hayes</p>
+      </div>
+      <div class="player-track-actions">
+        <button class="player-icon-btn like-btn" id="like-btn" aria-label="Like song" title="Save to your Liked Songs">
+          <i class="far fa-heart"></i>
+        </button>
+        <button class="player-icon-btn" aria-label="Picture in Picture" title="View full screen">
+          <i class="fas fa-external-link-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Center: Controls -->
+    <div class="player-center">
+      <div class="player-controls">
+        <button class="player-ctrl-btn shuffle-btn" id="shuffle-btn" aria-label="Shuffle" title="Shuffle">
+          <i class="fas fa-random"></i>
+        </button>
+        <button class="player-ctrl-btn" id="prev-btn" aria-label="Previous" title="Previous">
+          <i class="fas fa-step-backward"></i>
+        </button>
+        <button class="player-ctrl-btn play-pause-btn" id="play-pause-btn" aria-label="Play" title="Play">
+          <i class="fas fa-play" id="play-icon"></i>
+        </button>
+        <button class="player-ctrl-btn" id="next-btn" aria-label="Next" title="Next">
+          <i class="fas fa-step-forward"></i>
+        </button>
+        <button class="player-ctrl-btn repeat-btn" id="repeat-btn" aria-label="Repeat" title="Repeat">
+          <i class="fas fa-redo"></i>
+        </button>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-bar-section">
+        <span class="progress-time" id="current-time">0:00</span>
+        <div class="progress-bar-wrapper" id="progress-bar-wrapper" role="slider" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+            <div class="progress-thumb" id="progress-thumb"></div>
+          </div>
+        </div>
+        <span class="progress-time" id="total-time">3:24</span>
+      </div>
+    </div>
+
+    <!-- Right: Volume + Extra Controls -->
+    <div class="player-right">
+      <button class="player-icon-btn" aria-label="Queue" title="Open queue">
+        <i class="fas fa-list"></i>
+      </button>
+      <button class="player-icon-btn" aria-label="Connect to a device" title="Connect to a device">
+        <i class="fas fa-desktop"></i>
+      </button>
+      <button class="player-icon-btn volume-icon-btn" id="volume-icon-btn" aria-label="Toggle mute" title="Volume">
+        <i class="fas fa-volume-up" id="volume-icon"></i>
+      </button>
+      <div class="volume-slider-wrapper">
+        <input
+          type="range"
+          id="volume-slider"
+          class="volume-slider"
+          min="0"
+          max="100"
+          value="70"
+          aria-label="Volume"
+        />
+      </div>
+      <button class="player-icon-btn" aria-label="Fullscreen" title="Fullscreen">
+        <i class="fas fa-expand-alt"></i>
+      </button>
+    </div>
+
+  </footer>
+
+  <!-- ===================== MOBILE BOTTOM NAV ===================== -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="#" class="mob-nav-item active" id="mob-nav-home" data-page="home">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="#" class="mob-nav-item" id="mob-nav-search" data-page="search">
+      <i class="fas fa-search"></i>
+      <span>Search</span>
+    </a>
+    <a href="#" class="mob-nav-item" id="mob-nav-library" data-page="library">
+      <i class="fas fa-book-open"></i>
+      <span>Your Library</span>
+    </a>
+    <a href="#" class="mob-nav-item" id="mob-nav-premium" data-page="premium">
+      <i class="fas fa-star"></i>
+      <span>Premium</span>
+    </a>
+  </nav>
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
