@@ -1,6 +1,5 @@
 # 🎵 Spotify Web Player UI Clone
 
-A **pixel-perfect, fully responsive clone of the Spotify Web Player** built from scratch using **HTML5, CSS3, and Vanilla JavaScript**. This is a pure frontend/UI project — no backend, no Spotify API, no authentication required.
 
 ---
 
