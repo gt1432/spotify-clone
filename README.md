@@ -1,11 +1,6 @@
 # 🎵 Spotify Web Player UI Clone
 
 
----
-
-
----
-
 ## ✨ Features
 
 ### 🎨 UI Components
