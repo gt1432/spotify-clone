@@ -19,8 +19,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/style.css?v=1.0.7" />
+  <link rel="stylesheet" href="css/responsive.css?v=1.0.7" />
 </head>
 <body>
 
@@ -346,6 +346,9 @@
 
             </div>
           </section>
+
+          <!-- Dynamic Language Sections -->
+          <div id="language-sections-root"></div>
 
           <!-- ---- Made For You Section ---- -->
           <section class="content-section" aria-label="Made For You">
@@ -790,6 +793,8 @@
             </div>
 
           </div>
+          <!-- Dynamic Search Results -->
+          <div id="search-results-container" style="display:none; margin-top:20px;"></div>
         </section>
         <!-- end #search-page -->
 
@@ -922,9 +927,9 @@
         <button class="player-icon-btn like-btn" id="like-btn" aria-label="Like song" title="Save to your Liked Songs">
           <i class="far fa-heart"></i>
         </button>
-        <button class="player-icon-btn" aria-label="Picture in Picture" title="View full screen">
-          <i class="fas fa-external-link-alt"></i>
-        </button>
+        <a id="player-spotify-link" href="#" target="_blank" rel="noopener noreferrer" class="player-icon-btn" title="Open on Spotify" style="display:none; color: #1DB954; margin-left: 8px;">
+          <i class="fab fa-spotify"></i>
+        </a>
       </div>
     </div>
 
@@ -1013,6 +1018,7 @@
   <!-- Mobile Sidebar Overlay -->
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <script src="js/script.js"></script>
+  <script src="js/tracks.js?v=1.0.7"></script>
+  <script src="js/script.js?v=1.0.7"></script>
 </body>
 </html>

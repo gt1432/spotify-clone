@@ -838,10 +838,12 @@ ul, ol {
 .card-img-wrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 100%; /* Square aspect ratio */
+  aspect-ratio: 1 / 1;
+  padding-bottom: 0;
   border-radius: var(--sp-radius-sm);
   overflow: hidden;
   margin-bottom: var(--sp-space-md);
+  background-color: var(--sp-bg-highlight);
   box-shadow: var(--sp-shadow-md);
   transition: box-shadow var(--sp-transition-normal);
 }
@@ -856,6 +858,7 @@ ul, ol {
   height: 100%;
   object-fit: cover;
   transition: transform var(--sp-transition-slow);
+  display: block;
 }
 .music-card:hover .card-img-wrapper img {
   transform: scale(1.04);
