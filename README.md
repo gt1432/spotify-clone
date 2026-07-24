@@ -206,14 +206,5 @@ The app uses a simple, zero-dependency architecture with:
 
 ---
 
-## 📝 License
-
-This project is built for **educational and portfolio purposes only**.  
-Spotify, the Spotify logo, and all related marks are trademarks of Spotify AB.  
-This clone is not affiliated with, endorsed by, or connected to Spotify in any way.
-
----
-
-## 👤 Author
 
 Built as a portfolio project demonstrating strong **HTML, CSS, responsive design, and JavaScript skills**.
