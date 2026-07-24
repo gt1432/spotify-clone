@@ -143,6 +143,64 @@ function loadTrack(index, autoPlay = false) {
   showToast(`Playing: ${track.name}`);
 }
 
+function handleImageFallback(img, trackIndex) {
+  if (!img) return;
+  const track = TRACKS[trackIndex] || TRACKS[currentTrackIndex];
+  if (img.naturalWidth === 120 && img.naturalHeight === 90) {
+    const fallbackTrack = TRACKS.find(t => t.album === track.album && t.id !== track.id);
+    if (fallbackTrack && fallbackTrack.img) {
+      img.src = fallbackTrack.img;
+    } else {
+      img.src = 'assets/images/album_pop.png';
+    }
+  }
+}
+
+let synthAudioContext = null;
+let synthInterval = null;
+
+function playSynthMelody() {
+  stopSynthMelody();
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    synthAudioContext = new AudioContextClass();
+    const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23, 392.00, 329.63];
+    let noteIdx = 0;
+    setPlayingState(true);
+
+    synthInterval = setInterval(() => {
+      if (!State.isPlaying || !synthAudioContext) return;
+      try {
+        const osc = synthAudioContext.createOscillator();
+        const gain = synthAudioContext.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(notes[noteIdx % notes.length], synthAudioContext.currentTime);
+        gain.gain.setValueAtTime((State.volume / 100) * 0.15, synthAudioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, synthAudioContext.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(synthAudioContext.destination);
+        osc.start();
+        osc.stop(synthAudioContext.currentTime + 0.35);
+        noteIdx++;
+      } catch(e) {}
+    }, 400);
+  } catch(e) {
+    console.warn("Synth audio fallback error:", e);
+  }
+}
+
+function stopSynthMelody() {
+  if (synthInterval) {
+    clearInterval(synthInterval);
+    synthInterval = null;
+  }
+  if (synthAudioContext) {
+    try { synthAudioContext.close(); } catch(e) {}
+    synthAudioContext = null;
+  }
+}
+
 function playFallbackAudio() {
   if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
     try { ytPlayer.pauseVideo(); } catch (e) {}
@@ -154,17 +212,19 @@ function playFallbackAudio() {
   audio.play()
     .then(() => setPlayingState(true))
     .catch(e => {
-      console.error("Autoplay block or missing fallback:", e);
-      setPlayingState(false);
+      console.warn("HTML5 audio playback blocked/failed, starting Synth Audio player:", e);
+      playSynthMelody();
     });
 }
 
 function playAudio() {
   if (isUsingFallback()) {
-    audio.play().then(() => setPlayingState(true)).catch(e => {
-      console.warn("Autoplay block", e);
-      setPlayingState(false);
-    });
+    audio.play()
+      .then(() => setPlayingState(true))
+      .catch(e => {
+        console.warn("Autoplay block, starting Synth Audio fallback", e);
+        playSynthMelody();
+      });
   } else {
     if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
       ytPlayer.playVideo();
@@ -173,6 +233,7 @@ function playAudio() {
 }
 
 function pauseAudio() {
+  stopSynthMelody();
   if (isUsingFallback()) {
     audio.pause();
     setPlayingState(false);
@@ -437,7 +498,12 @@ function initProgressBar() {
    ============================================================ */
 
 function updatePlayerUI(track) {
-  if (DOM.playerImg)         { DOM.playerImg.src = track.img; DOM.playerImg.alt = track.name; DOM.playerImg.onerror = function(){ this.onerror=null; this.src='https://img.youtube.com/vi/'+track.ytId+'/mqdefault.jpg'; }; }
+  if (DOM.playerImg) {
+    DOM.playerImg.src = track.img;
+    DOM.playerImg.alt = track.name;
+    DOM.playerImg.onload = function() { handleImageFallback(this, currentTrackIndex); };
+    DOM.playerImg.onerror = function() { this.onerror = null; this.src = 'assets/images/album_pop.png'; };
+  }
   if (DOM.playerTrackName)   DOM.playerTrackName.textContent  = track.name;
   if (DOM.playerTrackArtist) DOM.playerTrackArtist.textContent = track.artist;
 
@@ -508,7 +574,7 @@ function renderLanguageSections() {
         ${langTracks.slice(0, 6).map(track => `
           <div class="music-card" data-track-index="${TRACKS.findIndex(t => t.id === track.id)}" tabindex="0">
             <div class="card-img-wrapper">
-              <img src="${track.img}" alt="${track.name} cover" loading="lazy" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${track.ytId}/default.jpg'" />
+              <img src="${track.img}" alt="${track.name} cover" loading="lazy" onload="handleImageFallback(this, ${TRACKS.findIndex(t => t.id === track.id)})" onerror="this.onerror=null;this.src='assets/images/album_pop.png'" />
               <button class="card-play-btn" aria-label="Play ${track.name}"><i class="fas fa-play"></i></button>
             </div>
             <div class="card-body">
@@ -592,7 +658,7 @@ function renderSearchResults(query) {
       ${results.map(track => `
         <div class="music-card" data-track-index="${TRACKS.findIndex(t => t.id === track.id)}" tabindex="0">
           <div class="card-img-wrapper">
-            <img src="${track.img}" alt="${track.name} cover" loading="lazy" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${track.ytId}/default.jpg'" />
+            <img src="${track.img}" alt="${track.name} cover" loading="lazy" onload="handleImageFallback(this, ${TRACKS.findIndex(t => t.id === track.id)})" onerror="this.onerror=null;this.src='assets/images/album_pop.png'" />
             <button class="card-play-btn" aria-label="Play ${track.name}"><i class="fas fa-play"></i></button>
           </div>
           <div class="card-body">

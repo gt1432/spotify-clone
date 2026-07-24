@@ -84,8 +84,8 @@ const TRACKS = [
     "album": "Kabir Singh",
     "language": "Hindi",
     "year": 2019,
-    "ytId": "aF0L4p2H96c",
-    "img": "https://img.youtube.com/vi/aF0L4p2H96c/mqdefault.jpg",
+    "ytId": "VOLKJJvfAbg",
+    "img": "https://img.youtube.com/vi/VOLKJJvfAbg/mqdefault.jpg",
     "spotifyUrl": "https://open.spotify.com/search/Bekhayali%20Arijit%20Singh"
   },
   {
@@ -466,8 +466,8 @@ const TRACKS = [
     "album": "Hridayam",
     "language": "Malayalam",
     "year": 2022,
-    "ytId": "M58wFmKqS0c",
-    "img": "https://img.youtube.com/vi/M58wFmKqS0c/mqdefault.jpg",
+    "ytId": "epAFDEJImrU",
+    "img": "https://img.youtube.com/vi/epAFDEJImrU/mqdefault.jpg",
     "spotifyUrl": "https://open.spotify.com/search/Onakka%20Munthiri"
   },
   {
